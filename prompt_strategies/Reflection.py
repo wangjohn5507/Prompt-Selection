@@ -101,61 +101,61 @@ def Reflection_generate_result(args):
         
 
         if args.dataset == 'HumanEval':
-            # for i in range(3):  # Number of iterations for self-reflection
-            i=0
-            reflection = [{'role': 'system', 'content': Reflection_system_message}, {'role': 'user', 'content': Reflection_prompt.format(code='\n'.join(code))}]
-            reflection_response = call_chat_gpt(reflection, args)
-            input_token, input_cost = num_tokens_from_messages(reflection, args.model, True)
-            output_token, output_cost = num_tokens_from_messages(reflection_response, args.model, False)
-            input_token_init += input_token
-            input_cost_init += input_cost
-            output_cost_init += output_cost
-            output_token_init += output_token
-            print(f"\nReflection {i+1}:\n", reflection_response)
-            
-            # Assume the reflection contains suggestions or improvements
-            refined_code = [{'role': 'system', 'content': MBPP_system_message}, {'role': 'user', 'content': HumanEval_Refinement_prompt.format(initial_code='\n'.join(code), reflection=reflection_response)}]
-            refined_response = call_chat_gpt(refined_code, args)
-            input_token, input_cost = num_tokens_from_messages(refined_code, args.model, True)
-            output_token, output_cost = num_tokens_from_messages(refined_response, args.model, False)
-            input_token_init += input_token
-            input_cost_init += input_cost
-            output_cost_init += output_cost
-            output_token_init += output_token
-
-
-            code = process_generation_to_code(refined_response)  # Update initial code with the refined version
-            
-            print(f"\nRefined Code {i+1}:\n", code)
+            for i in range(2):  # Number of iterations for self-reflection
+            # i=0
+                reflection = [{'role': 'system', 'content': Reflection_system_message}, {'role': 'user', 'content': Reflection_prompt.format(code='\n'.join(code))}]
+                reflection_response = call_chat_gpt(reflection, args)
+                input_token, input_cost = num_tokens_from_messages(reflection, args.model, True)
+                output_token, output_cost = num_tokens_from_messages(reflection_response, args.model, False)
+                input_token_init += input_token
+                input_cost_init += input_cost
+                output_cost_init += output_cost
+                output_token_init += output_token
+                print(f"\nReflection {i+1}:\n", reflection_response)
+                
+                # Assume the reflection contains suggestions or improvements
+                refined_code = [{'role': 'system', 'content': MBPP_system_message}, {'role': 'user', 'content': HumanEval_Refinement_prompt.format(initial_code='\n'.join(code), reflection=reflection_response)}]
+                refined_response = call_chat_gpt(refined_code, args)
+                input_token, input_cost = num_tokens_from_messages(refined_code, args.model, True)
+                output_token, output_cost = num_tokens_from_messages(refined_response, args.model, False)
+                input_token_init += input_token
+                input_cost_init += input_cost
+                output_cost_init += output_cost
+                output_token_init += output_token
+    
+    
+                code = process_generation_to_code(refined_response)  # Update initial code with the refined version
+                
+                print(f"\nRefined Code {i+1}:\n", code)
 
         elif args.dataset == 'MBPP':
             function_name = get_function_info(per_data['code'])
-            i=0
-            # for i in range(3):  # Number of iterations for self-reflection
-            reflection = [{'role': 'system', 'content': Reflection_system_message}, {'role': 'user', 'content': Reflection_prompt.format(code='\n'.join(code))}]
-            reflection_response = call_chat_gpt(reflection, args)
-            input_token, input_cost = num_tokens_from_messages(reflection, args.model, True)
-            output_token, output_cost = num_tokens_from_messages(reflection_response, args.model, False)
-            input_token_init += input_token
-            input_cost_init += input_cost
-            output_cost_init += output_cost
-            output_token_init += output_token
-            print(f"\nReflection {i+1}:\n", reflection_response)
-            
-            # Assume the reflection contains suggestions or improvements
-            refined_code = [{'role': 'system', 'content': MBPP_system_message}, {'role': 'user', 'content': MBPP_Refinement_prompt.format(initial_code='\n'.join(code), reflection=reflection_response, function_name=function_name)}]
-            refined_response = call_chat_gpt(refined_code, args)
-            input_token, input_cost = num_tokens_from_messages(refined_code, args.model, True)
-            output_token, output_cost = num_tokens_from_messages(refined_response, args.model, False)
-            input_token_init += input_token
-            input_cost_init += input_cost
-            output_cost_init += output_cost
-            output_token_init += output_token
-
-
-            code = process_generation_to_code(refined_response)  # Update initial code with the refined version
-            
-            print(f"\nRefined Code {i+1}:\n", code)
+            # i=0
+            for i in range(2):  # Number of iterations for self-reflection
+                reflection = [{'role': 'system', 'content': Reflection_system_message}, {'role': 'user', 'content': Reflection_prompt.format(code='\n'.join(code))}]
+                reflection_response = call_chat_gpt(reflection, args)
+                input_token, input_cost = num_tokens_from_messages(reflection, args.model, True)
+                output_token, output_cost = num_tokens_from_messages(reflection_response, args.model, False)
+                input_token_init += input_token
+                input_cost_init += input_cost
+                output_cost_init += output_cost
+                output_token_init += output_token
+                print(f"\nReflection {i+1}:\n", reflection_response)
+                
+                # Assume the reflection contains suggestions or improvements
+                refined_code = [{'role': 'system', 'content': MBPP_system_message}, {'role': 'user', 'content': MBPP_Refinement_prompt.format(initial_code='\n'.join(code), reflection=reflection_response, function_name=function_name)}]
+                refined_response = call_chat_gpt(refined_code, args)
+                input_token, input_cost = num_tokens_from_messages(refined_code, args.model, True)
+                output_token, output_cost = num_tokens_from_messages(refined_response, args.model, False)
+                input_token_init += input_token
+                input_cost_init += input_cost
+                output_cost_init += output_cost
+                output_token_init += output_token
+    
+    
+                code = process_generation_to_code(refined_response)  # Update initial code with the refined version
+                
+                print(f"\nRefined Code {i+1}:\n", code)
 
         elif args.dataset == 'DS1000':
             for i in range(3):  # Number of iterations for self-reflection
