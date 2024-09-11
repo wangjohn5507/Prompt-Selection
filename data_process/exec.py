@@ -15,7 +15,7 @@ def process_strategy_files(file_list):
     results = defaultdict(list)
     max_tokens = defaultdict(int)
     
-    # 读取文件并计算每个任务的最大 total_tokens
+   
     for file_path in file_list:
         with open(file_path, 'r') as file:
             for idx, line in enumerate(file):
@@ -34,8 +34,7 @@ def process_strategy_files(file_list):
                 })
                 if total_tokens > max_tokens[task_id]:
                     max_tokens[task_id] = total_tokens
-    
-    # 使用 log(max total_token) * exec_acc - log(total_token) 公式排序
+   
     sorted_results = {}
     for task_id, strategies in results.items():
         # print(results[task_id])
@@ -106,7 +105,7 @@ def record_rank(origin_path, ranked_results, output_file, args):
     
 #     for task_id, strategies in data.items():
 #         if strategies and 'strategy' in strategies[0]:
-#             rank_one_strategy = strategies[0]['strategy']  # 第一名策略
+#             rank_one_strategy = strategies[0]['strategy'] 
 #             if rank_one_strategy in strategy_rank_one:
 #                 strategy_rank_one[rank_one_strategy].append(task_id)
 #             else:
