@@ -330,20 +330,20 @@ def calculate_actual_acc(data_list, model, model_path):
     model.eval()
     model.to(device)
 
-    # 获取所有问题的嵌入
+
     questions = [per_data['text'] for per_data in data_list]
     embeddings = get_embedding(questions, model_path)
 
-    # 将嵌入转换为张量并移动到设备
+
     if isinstance(embeddings, list):
         embeddings = torch.tensor(embeddings).to(device)
 
-    # 预测所有问题的标签
+
     with torch.no_grad():
         outputs = model(embeddings)
         predictions = torch.argmax(outputs, dim=1).cpu().numpy()
 
-    # 初始化计数器
+
     correct = 0
     zero_shot_correct = 0
     zero_cot_correct = 0
@@ -356,7 +356,7 @@ def calculate_actual_acc(data_list, model, model_path):
     persona_correct = 0
     total = len(data_list)
 
-    # 策略字典
+
     strategy_dict = {
         0: 'MBPP_Zeroshot_0.0_gpt-3.5-turbo-0125.jsonl',
         1: 'MBPP_Zeroshot_CoT_0.0_gpt-3.5-turbo-0125.jsonl',
@@ -369,7 +369,7 @@ def calculate_actual_acc(data_list, model, model_path):
         8: 'MBPP_Persona_0.0_gpt-3.5-turbo-0125.jsonl'
     }
 
-    # 计算准确率
+
     for idx, per_data in enumerate(data_list):
         # y_pred = predictions[idx]
         # y_pred = random.choice([0, 4])
@@ -422,20 +422,20 @@ def calculate_token_saved(data_list, model, model_path):
     model.eval()
     model.to(device)
 
-    # 获取所有问题的嵌入
+
     questions = [per_data['text'] for per_data in data_list]
     embeddings = get_embedding(questions, model_path)
 
-    # 将嵌入转换为张量并移动到设备
+
     if isinstance(embeddings, list):
         embeddings = torch.tensor(embeddings).to(device)
 
-    # 预测所有问题的标签
+
     with torch.no_grad():
         outputs = model(embeddings)
         predictions = torch.argmax(outputs, dim=1).cpu().numpy()
 
-    # 初始化计数器
+
     pred_token = 0
     zero_shot_token = 0
     zero_cot_token = 0
@@ -448,7 +448,7 @@ def calculate_token_saved(data_list, model, model_path):
     persona_token = 0
     total = len(data_list)
 
-    # 策略字典
+
     strategy_dict = {
         0: 'MBPP_Zeroshot_0.0_gpt-3.5-turbo-0125.jsonl',
         1: 'MBPP_Zeroshot_CoT_0.0_gpt-3.5-turbo-0125.jsonl',
@@ -461,7 +461,7 @@ def calculate_token_saved(data_list, model, model_path):
         8: 'MBPP_Persona_0.0_gpt-3.5-turbo-0125.jsonl'
     }
 
-    # 计算各策略的 token 数量
+
     for idx, per_data in enumerate(data_list):
         # y_pred = predictions[idx]
         # y_pred = random.choice([0, 4])
@@ -513,20 +513,20 @@ def calculate_avg_rank(data_list, model, model_path):
     model.eval()
     model.to(device)
 
-    # 获取所有问题的嵌入
+
     questions = [per_data['text'] for per_data in data_list]
     embeddings = get_embedding(questions, model_path)
 
-    # 将嵌入转换为张量并移动到设备
+
     if isinstance(embeddings, list):
         embeddings = torch.tensor(embeddings).to(device)
 
-    # 预测所有问题的标签
+
     with torch.no_grad():
         outputs = model(embeddings)
         predictions = torch.argmax(outputs, dim=1).cpu().numpy()
 
-    # 初始化计数器
+
     pred_rank = 0
     zero_shot_rank = 0
     zero_cot_rank = 0
@@ -539,7 +539,7 @@ def calculate_avg_rank(data_list, model, model_path):
     persona_rank = 0
     total = len(data_list)
 
-    # 策略字典
+
     strategy_dict = {
         0: 'MBPP_Zeroshot_0.0_gpt-3.5-turbo-0125.jsonl',
         1: 'MBPP_Zeroshot_CoT_0.0_gpt-3.5-turbo-0125.jsonl',
@@ -552,7 +552,6 @@ def calculate_avg_rank(data_list, model, model_path):
         8: 'MBPP_Persona_0.0_gpt-3.5-turbo-0125.jsonl'
     }
 
-    # 计算各策略的 avg rank
     for idx, per_data in enumerate(data_list):
         # y_pred = predictions[idx]
         # y_pred = random.choice([0, 4])
