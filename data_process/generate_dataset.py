@@ -64,34 +64,6 @@ def get_difficulty_data(data, args):
             hard_difficulty_data.append(per_data)
     return easy_difficulty_data, hard_difficulty_data
 
-def get_difficulty_classification_data(train_easy_data, train_hard_data, args):
-    train_difficulty_classification_data = []
-    type = args.type
-    if type == 1:
-        easy_label = [0, 1, 2, 3, 4, 5]
-        hard_label = [4, 5] 
-    elif type == 2:
-        easy_label = [0, 1, 2, 3]
-        hard_label = [4, 5]
-    elif type == 3:
-        easy_label = [0, 1, 2, 3, 4, 5]
-        hard_label = [1, 2, 3, 4, 5]
-    elif type == 4:
-        easy_label = [0]
-        hard_label = [1, 2, 3, 4, 5]
-    elif type == 5:
-        easy_label = [0, 1, 2, 3, 4, 5]
-        hard_label = [0, 1, 2, 3, 4, 5]
-
-    for per_data in train_easy_data:
-        label = per_data['label']
-        if label in easy_label:
-            train_difficulty_classification_data.append(per_data)
-    for per_data in train_hard_data:
-        label = per_data['label']
-        if label in hard_label:
-            train_difficulty_classification_data.append(per_data)
-    return train_difficulty_classification_data
 
 def get_complexity_classification_data(train_easy_data, train_hard_data, args):
     # strategy_dict = {
@@ -107,21 +79,9 @@ def get_complexity_classification_data(train_easy_data, train_hard_data, args):
     # }
     train_complexity_classification_data = []
     type = args.type
-    if type == 1:
-        easy_label = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        hard_label = [5, 6, 7, 8] 
-    elif type == 2:
-        easy_label = [0, 1, 2, 3]
-        hard_label = [4, 5, 6, 7, 8]
-    elif type == 3:
-        easy_label = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        hard_label = [1, 2, 3, 4, 5, 6, 7, 8]
-    elif type == 4:
-        easy_label = [0]
-        hard_label = [1, 2, 3, 4, 5, 6, 7, 8]
-    elif type == 5:
-        easy_label = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-        hard_label = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    
+    easy_label = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    hard_label = [0, 1, 2, 3, 4, 5, 6, 7, 8]
 
     for per_data in train_easy_data:
         # print(per_data.keys())
